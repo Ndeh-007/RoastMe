@@ -5,7 +5,7 @@ from PySide6.QtGui import QAction, QMouseEvent, Qt, QPixmap
 from PySide6.QtWidgets import QFrame, QMenu, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, \
     QWidget
 
-from core.api import fetchInsult
+from core.api import fetchInsult, fetchJoke
 from core.context_menu import open_settings, quit_application
 from core.signalBus import signalBus
 
@@ -17,6 +17,7 @@ class MainPage(QFrame):
         self.y = 64
         self.s = QSize(self.x, self.y)
         self.resize(self.s)
+        self.toggler = False
 
         img = QLabel()
         pixmap = QPixmap("./assets/roast_me_small.png")
@@ -56,7 +57,7 @@ class MainPage(QFrame):
         self.bubble_timer.setSingleShot(True)
 
         # at every interval(ms), fetch an insult
-        interval = 3600000
+        interval = 1800000
 
         self.insult_timer = QTimer()
         self.insult_timer.setInterval(interval)
@@ -76,10 +77,14 @@ class MainPage(QFrame):
         self.insult_timer.start()
 
     def showInsult(self):
-        text = fetchInsult()
+        if self.toggler:
+            text = fetchInsult()
+        else:
+            text = fetchJoke()
         self.bubble.showBubble(text)
         self.bubble_timer.start()
         signalBus.onEnlargeWindow.emit(self.bubble.sizeHint())
+        self.toggler = not self.toggler
 
     def removeInsult(self):
         self.bubble.closeBubble()
