@@ -56,7 +56,7 @@ class MainPage(QFrame):
         self.bubble_timer.timeout.connect(self.removeInsult)
         self.bubble_timer.setSingleShot(True)
 
-        # at every interval(ms), fetch an insult
+        # at every interval(ms), fetch an insult or joke
         interval = 1800000
 
         self.insult_timer = QTimer()
@@ -77,12 +77,12 @@ class MainPage(QFrame):
         self.insult_timer.start()
 
     def showInsult(self):
+        print("printing data")
         if self.toggler:
             text = fetchInsult()
         else:
             text = fetchJoke()
         self.bubble.showBubble(text)
-        self.bubble_timer.start()
         signalBus.onEnlargeWindow.emit(self.bubble.sizeHint())
         self.toggler = not self.toggler
 
