@@ -2,6 +2,8 @@ from PySide6.QtCore import QSize, QTimer
 from PySide6.QtGui import QMouseEvent, Qt, QPixmap
 from PySide6.QtWidgets import QFrame, QLabel, QVBoxLayout, QHBoxLayout, QWidget
 
+from api.content import API_fetchContent
+from api.local_storage import API_fetchAppSettingsItem
 from utils.signal_bus import signalBus
 from views.floating.bubble import Bubble
 from views.floating.floating_context_menu import ContextMenu
@@ -14,7 +16,6 @@ class BubbleHolder(QFrame):
         self.y = 64
         self.s = QSize(self.x, self.y)
         self.resize(self.s)
-        self.toggler = False
 
         img = QLabel()
         pixmap = QPixmap(":/images/roast_me_small.png")
@@ -29,8 +30,6 @@ class BubbleHolder(QFrame):
         self.bubble.hide()
 
         self.layout.addWidget(self.bubble)
-
-        # self.layout.addWidget(img)
 
         i = QWidget()
         il = QVBoxLayout()
@@ -47,20 +46,22 @@ class BubbleHolder(QFrame):
             }
         """)
 
-        # hide the bubble after 5seconds
+        # hide the bubble after 10 seconds
         self.bubble_timer = QTimer()
         self.bubble_timer.setInterval(10000)
         self.bubble_timer.timeout.connect(self.removeInsult)
         self.bubble_timer.setSingleShot(True)
 
         # at every interval(ms), fetch an insult or joke
-        interval = 1800000
+        interval = 1 * 60000  # 1 minute
 
         self.insult_timer = QTimer()
         self.insult_timer.setInterval(interval)
         self.insult_timer.timeout.connect(self.showInsult)
         self.insult_timer.setSingleShot(False)
         self.insult_timer.start()
+
+        self.connectSignals()
 
     def mousePressEvent(self, event: QMouseEvent) -> None:
         super().mousePressEvent(event)
@@ -74,20 +75,19 @@ class BubbleHolder(QFrame):
         self.insult_timer.start()
 
     def showInsult(self):
-        if self.toggler:
-            # text = fetchInsult()
-            # text = fetchJoke()
-            pass
-        else:
-            # text = fetchJokeII()
-            pass
-        text = "fecthing jokect"
-
+        text = API_fetchContent()
         self.bubble.showBubble(text)
-
         signalBus.onEnlargeWindow.emit(self.bubble.sizeHint())
-        self.toggler = not self.toggler
 
     def removeInsult(self):
         self.bubble.closeBubble()
         # signalBus.onReduceWindow.emit()
+
+    def __handleSettingsUpdated(self):
+        interval = API_fetchAppSettingsItem("fetch_interval")
+        if interval is not None:
+            self.insult_timer.setInterval(int(float(interval) * 60000))
+
+    def connectSignals(self):
+        signalBus.onSettingsUpdated.connect(self.__handleSettingsUpdated)
+        signalBus.initializeApplicationData.connect(self.__handleSettingsUpdated)

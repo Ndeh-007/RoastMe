@@ -67,11 +67,16 @@ class VSettingsView(QDialog):
             "twopart": QCheckBox("twopart"),
         }
 
+        self.fetchModeOptions = {
+            "jokes": QCheckBox("jokes"),
+            "insults": QCheckBox("insults"),
+        }
+
         # create holders
 
         # time
         self.t_so = VSettingsGroupItem()
-        self.t_so.addWidget(QLabel('Fetch Duration (min)'), 0, 0)
+        self.t_so.addWidget(QLabel('Fetch Interval (min)'), 0, 0)
         self.t_so.addWidget(self.durationInput, 0, 1)
         self.t_so.addWidget(QLabel('Language'), 0, 2)
         self.t_so.addWidget(self.languageComboBox, 0, 3)
@@ -104,23 +109,33 @@ class VSettingsView(QDialog):
         for i, (k, w) in enumerate(self.jokeTypeOptions.items()):
             self.jt_so.addWidget(w, 1, int(i) + 1)
 
+        # fetch modes
+        self.fm_so = VSettingsGroupItem()
+        self.fm_so.addWidget(QLabel('Fetch Mode: '), 0, 0)
+        self.fm_so.addWidget(QWidget(), 0, 2)
+        self.fm_so.sgLayout.setColumnStretch(2, 1)
+
+        for i, (k, w) in enumerate(self.fetchModeOptions.items()):
+            self.fm_so.addWidget(w, 1, int(i) + 1)
+
         layout = QGridLayout()
         layout.addWidget(QWidget(), 0, 0)
-        layout.addWidget(self.label, 0, 1, )
+        # layout.addWidget(self.label, 0, 1,)
         layout.addWidget(self.t_so, 1, 1)
         layout.addWidget(self.c_so, 2, 1)
         layout.addWidget(self.jf_so, 4, 1)
         layout.addWidget(self.jt_so, 5, 1)
-        layout.addWidget(QWidget(), 5, 2)
-        layout.addWidget(self.console, 6, 1)
-        layout.addWidget(QWidget(), 7, 0)
+        layout.addWidget(self.fm_so, 6, 1)
+        layout.addWidget(QWidget(), 6, 2)
+        layout.addWidget(self.console, 7, 1)
+        layout.addWidget(QWidget(), 8, 0)
 
         layout.setColumnStretch(0, 3)
         layout.setColumnStretch(1, 1)
         layout.setColumnStretch(2, 3)
         layout.setRowStretch(7, 1)
 
-        layout.setVerticalSpacing(20)
+        # layout.setVerticalSpacing(20)
 
         self.setLayout(layout)
 
@@ -139,8 +154,15 @@ class VSettingsView(QDialog):
         opts = {
             "en - English": "en",
             "fr - French": "fr",
+            "de - German": "de",
+            "es - Spanish": "es",
+            "cs - Czech": "cs",
+            "pt - Portuguese": "pt",
         }
         populateComboBox(self.languageComboBox, opts)
+
+        for box in self.fetchModeOptions.values():
+            box.setChecked(True)
 
     def __config_ui(self):
         """
@@ -159,6 +181,9 @@ class VSettingsView(QDialog):
 
         for box in self.jokeTypeOptions.values():
             box.checkStateChanged.connect(self.__handleJokeTypeChanged)
+
+        for box in self.fetchModeOptions.values():
+            box.checkStateChanged.connect(self.__handleFetchModeChanged)
 
     def __prime_ui_content(self):
         """
@@ -209,9 +234,21 @@ class VSettingsView(QDialog):
         if isinstance(catOpts, str):
             changeCheckBoxOptsState(catOpts, self.jokeTypeOptions)
 
+        # joke type
+        catOpts = opts.get('fetch_mode').value()
+        if isinstance(catOpts, str):
+            changeCheckBoxOptsState(catOpts, self.fetchModeOptions)
+
     # endregion
 
     # region event handling
+    @exception_warning_handler("settings")
+    def __handleFetchModeChanged(self, _=None):
+        catOpts = self.__collectCheckBoxOptions(self.fetchModeOptions)
+        if catOpts is None:
+            catOpts = "jokes,insults"
+        self.dispatchToStorage({"fetch_mode": catOpts})
+
     @exception_warning_handler("settings")
     def __handleLanguageChanged(self, index: int):
         data = self.languageComboBox.itemData(index)
@@ -221,8 +258,8 @@ class VSettingsView(QDialog):
     def __handleJokeTypeChanged(self, _=None):
         catOpts = self.__collectCheckBoxOptions(self.jokeTypeOptions)
         if catOpts is None:
-            catOpts = "jokes,insults"
-        self.dispatchToStorage({"joke_flags": catOpts})
+            catOpts = "single,twopart"
+        self.dispatchToStorage({"joke_type": catOpts})
 
     @exception_warning_handler("settings")
     def __handleJokeFlagsChanged(self, _=None):
@@ -231,11 +268,6 @@ class VSettingsView(QDialog):
 
     @exception_warning_handler("settings")
     def __handleJokeCategoryChanged(self, _=None):
-        """
-
-        :param _:
-        :return:
-        """
         catOpts = self.__collectCheckBoxOptions(self.categoryOptions)
         if catOpts is None:
             # if no box is checked, fire warning. set category to any
@@ -322,7 +354,7 @@ class VSettingsView(QDialog):
         if not state:
             API_dispatchAlert(f"Failed to update.")
         else:
-            API_dispatchAlert(f"Change Successful.", "event")
+            API_dispatchAlert(f"Settings Updated.", "warning")
 
         return state
 

@@ -8,7 +8,7 @@ from PySide6.QtWidgets import QMainWindow, QApplication, QLabel, QSystemTrayIcon
 from api.alerts import API_dispatchAlert
 from api.local_storage import API_InitializeLocalStorage
 from core.config_variables import APP_NAME
-from utils.app_colors import LOGO_ORANGE
+from utils.common_variables import LOGO_ORANGE
 from utils.logger import Logger
 from utils.signal_bus import signalBus
 from views.floating.bubble_window import VBubbleWindow
@@ -56,10 +56,10 @@ class VMainWindow(QMainWindow):
         show_bubble_icon = qtawesome.icon("msc.eye", color=LOGO_ORANGE)
         hide_bubble_icon = qtawesome.icon("msc.eye-closed", color=LOGO_ORANGE)
 
-        show_bubble_action = QAction(text="Show Bubble", icon=show_bubble_icon)
-        hide_bubble_action = QAction(text="Hide Bubble", icon=hide_bubble_icon)
-        settings_action = QAction(text="Settings", icon=options_icon)
-        quit_action = QAction(text="Quit", icon=quit_icon)
+        show_bubble_action = QAction(text="Show Bubble", icon=show_bubble_icon, parent=self)
+        hide_bubble_action = QAction(text="Hide Bubble", icon=hide_bubble_icon, parent=self)
+        settings_action = QAction(text="Settings", icon=options_icon, parent=self)
+        quit_action = QAction(text="Quit", icon=quit_icon, parent=self)
 
         show_bubble_action.triggered.connect(self.__bubbleView.launch)
         hide_bubble_action.triggered.connect(self.__bubbleView.hide)
@@ -68,20 +68,22 @@ class VMainWindow(QMainWindow):
 
         icon = QIcon(":/images/roast_me.ico")
 
-        self.__trayMenu = QMenu()
+        self.trayMenu = QMenu()
 
-        self.__trayMenu.addAction(show_bubble_action)
-        self.__trayMenu.addAction(hide_bubble_action)
-        self.__trayMenu.addSeparator()
-        self.__trayMenu.addAction(settings_action)
-        self.__trayMenu.addSeparator()
-        self.__trayMenu.addAction(quit_action)
+        self.trayMenu.addAction(show_bubble_action)
+        self.trayMenu.addAction(hide_bubble_action)
+        self.trayMenu.addSeparator()
+        self.trayMenu.addAction(settings_action)
+        self.trayMenu.addSeparator()
+        self.trayMenu.addAction(quit_action)
 
-        self.tray = QSystemTrayIcon()
-        self.tray.setIcon(icon)
-        self.tray.setVisible(True)
+        self.trayIcon = QSystemTrayIcon()
+        self.trayIcon.activated.connect(lambda: self.trayMenu.exec())
+        self.trayIcon.setIcon(icon)
+        self.trayIcon.setToolTip(APP_NAME)
 
-        self.tray.setContextMenu(self.__trayMenu)
+        self.trayIcon.setContextMenu(self.trayMenu)
+        self.trayIcon.show()
 
     def quitApp(self):
         self.__app.quit()

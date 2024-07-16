@@ -7,7 +7,7 @@ DEBUG = True
 YEAR = 2023
 AUTHOR = "NDEH.AKUMAH"
 VERSION = "2.0.0"
-APP_NAME = "RoastMe"
+APP_NAME = "HumorMe"
 EXEC_DIR = Path(__file__).parent
 BASE_DIR = EXEC_DIR.parent
 

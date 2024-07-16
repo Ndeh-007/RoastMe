@@ -12,5 +12,7 @@ class SignalBus(QObject):
 
     onEnlargeWindow = Signal(object)
 
+    onSettingsUpdated = Signal()
+
 
 signalBus = SignalBus()

@@ -3,7 +3,7 @@ from PySide6.QtCore import QPoint
 from PySide6.QtGui import QAction
 from PySide6.QtWidgets import QMenu
 
-from utils.app_colors import LOGO_ORANGE
+from utils.common_variables import LOGO_ORANGE
 from utils.signal_bus import signalBus
 
 

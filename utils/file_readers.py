@@ -65,7 +65,7 @@ def read_config_file(path: str) -> dict[str, StorageEntity]:
             _v = None
 
         # if the string is number
-        if str(element.get('value')).isdigit():
+        if _k in ["fetch_interval", "joke_quantity"]:
             _v = float(element.get('value'))
 
         return _k, StorageEntity(_k, _v)

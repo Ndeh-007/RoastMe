@@ -3,6 +3,7 @@ from typing import Any
 
 from core.app_settings import LOCAL_STORAGE, StorageEntity
 from utils.exception_handler import exception_warning_handler
+from utils.signal_bus import signalBus
 
 
 def API_InitializeLocalStorage():
@@ -63,5 +64,10 @@ def API_UpdateAppSettings(data: dict[str, StorageEntity] | dict[str, Any]):
             LOCAL_STORAGE.opts().update({k: v})
         else:
             LOCAL_STORAGE.opts().update({k: StorageEntity(k, v)})
+
+    LOCAL_STORAGE.constructAPIURLS()
+    LOCAL_STORAGE.triggerSaveTimer()
+
+    signalBus.onSettingsUpdated.emit()
 
     return True

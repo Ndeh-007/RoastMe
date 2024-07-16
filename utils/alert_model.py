@@ -14,11 +14,11 @@ class AlertDataModel:
 
     def __config(self):
         if self.__mode == "error":
-            self.__color = Qt.GlobalColor.darkRed
+            self.__color = Qt.GlobalColor.red
         if self.__mode == "warning":
-            self.__color = Qt.GlobalColor.darkYellow
+            self.__color = Qt.GlobalColor.yellow
         if self.__mode == "event":
-            self.__color = Qt.GlobalColor.darkBlue
+            self.__color = Qt.GlobalColor.green
 
     def setMode(self, mode):
         self.__mode = mode

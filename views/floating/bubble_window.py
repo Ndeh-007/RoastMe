@@ -91,7 +91,6 @@ class VBubbleWindow(QDialog):
         self.show()
         self.raise_()
         self.activateWindow()
-        print("bbl")
 
     def connectSignals(self):
         signalBus.onEnlargeWindow.connect(self.enlargeWindow)
