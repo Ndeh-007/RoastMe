@@ -1,8 +1,9 @@
-# Humor Me
+# Humor Me [Incomplete ReadMe]
 
 ## Description
 A small python application, built with pyside6. It fetches insult from [Evil Insults](https://evilinsult.com/api/#generate-insult-get).
 Some insults are more ... potent than others. It also gets jokes from [jokeapi](https://jokeapi.dev/)
+
 
 ![./resources/images/img_1.png](/resources/images/img_1.png)
 
