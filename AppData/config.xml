@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<config>
+    <component pid="fetch_interval" value="15"/>
+    <component pid="joke_category" value="Misc,Dark"/>
+    <component pid="joke_flags" value="none"/>
+    <component pid="joke_language" value="en"/>
+    <component pid="joke_type" value="single,twopart"/>
+    <component pid="joke_quantity" value="1"/>
+    <component pid="fetch_mode" value="jokes,insults"/>
+</config>

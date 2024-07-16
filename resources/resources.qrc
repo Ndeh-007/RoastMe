@@ -1,0 +1,17 @@
+<!DOCTYPE RCC>
+
+<RCC>
+    <qresource>
+
+        <!--   STYLES     -->
+
+
+        <!--   IMAGES     -->
+        <file>images/img.png</file>
+        <file>images/img_1.png</file>
+        <file>images/img_2.png</file>
+        <file>images/roast_me.png</file>
+        <file>images/roast_me.ico</file>
+        <file>images/roast_me_small.png</file>
+    </qresource>
+</RCC>

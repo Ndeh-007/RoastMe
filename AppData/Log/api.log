@@ -1,0 +1,128 @@
+2024-07-15 15:24:34,645 - ERROR - too many values to unpack (expected 2)
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 53, in API_UpdateAppSettings
+    for k, v in data:
+        ^^^^
+ValueError: too many values to unpack (expected 2)
+2024-07-15 15:24:38,662 - ERROR - too many values to unpack (expected 2)
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 53, in API_UpdateAppSettings
+    for k, v in data:
+        ^^^^
+ValueError: too many values to unpack (expected 2)
+2024-07-15 15:24:38,663 - ERROR - too many values to unpack (expected 2)
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 53, in API_UpdateAppSettings
+    for k, v in data:
+        ^^^^
+ValueError: too many values to unpack (expected 2)
+2024-07-15 15:24:38,664 - ERROR - too many values to unpack (expected 2)
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 53, in API_UpdateAppSettings
+    for k, v in data:
+        ^^^^
+ValueError: too many values to unpack (expected 2)
+2024-07-15 15:24:38,664 - ERROR - too many values to unpack (expected 2)
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 53, in API_UpdateAppSettings
+    for k, v in data:
+        ^^^^
+ValueError: too many values to unpack (expected 2)
+2024-07-15 15:24:38,665 - ERROR - too many values to unpack (expected 2)
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 53, in API_UpdateAppSettings
+    for k, v in data:
+        ^^^^
+ValueError: too many values to unpack (expected 2)
+2024-07-15 15:24:38,666 - ERROR - too many values to unpack (expected 2)
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 53, in API_UpdateAppSettings
+    for k, v in data:
+        ^^^^
+ValueError: too many values to unpack (expected 2)
+2024-07-15 15:24:38,667 - ERROR - too many values to unpack (expected 2)
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 53, in API_UpdateAppSettings
+    for k, v in data:
+        ^^^^
+ValueError: too many values to unpack (expected 2)
+2024-07-15 15:25:03,333 - ERROR - cannot convert dictionary update sequence element #0 to a sequence
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 57, in API_UpdateAppSettings
+    LOCAL_STORAGE.opts.update({k, StorageEntity(k, v)})
+TypeError: cannot convert dictionary update sequence element #0 to a sequence
+2024-07-15 15:25:03,335 - ERROR - cannot convert dictionary update sequence element #0 to a sequence
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 57, in API_UpdateAppSettings
+    LOCAL_STORAGE.opts.update({k, StorageEntity(k, v)})
+TypeError: cannot convert dictionary update sequence element #0 to a sequence
+2024-07-15 15:25:03,336 - ERROR - cannot convert dictionary update sequence element #0 to a sequence
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 57, in API_UpdateAppSettings
+    LOCAL_STORAGE.opts.update({k, StorageEntity(k, v)})
+TypeError: cannot convert dictionary update sequence element #0 to a sequence
+2024-07-15 15:25:03,336 - ERROR - cannot convert dictionary update sequence element #0 to a sequence
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 57, in API_UpdateAppSettings
+    LOCAL_STORAGE.opts.update({k, StorageEntity(k, v)})
+TypeError: cannot convert dictionary update sequence element #0 to a sequence
+2024-07-15 15:25:03,337 - ERROR - cannot convert dictionary update sequence element #0 to a sequence
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 57, in API_UpdateAppSettings
+    LOCAL_STORAGE.opts.update({k, StorageEntity(k, v)})
+TypeError: cannot convert dictionary update sequence element #0 to a sequence
+2024-07-15 15:25:03,338 - ERROR - cannot convert dictionary update sequence element #0 to a sequence
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 57, in API_UpdateAppSettings
+    LOCAL_STORAGE.opts.update({k, StorageEntity(k, v)})
+TypeError: cannot convert dictionary update sequence element #0 to a sequence
+2024-07-15 15:25:03,339 - ERROR - cannot convert dictionary update sequence element #0 to a sequence
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\utils\exception_handler.py", line 30, in inner
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\api\local_storage.py", line 57, in API_UpdateAppSettings
+    LOCAL_STORAGE.opts.update({k, StorageEntity(k, v)})
+TypeError: cannot convert dictionary update sequence element #0 to a sequence

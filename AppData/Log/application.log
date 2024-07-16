@@ -1,0 +1,23 @@
+2024-07-15 17:06:08,853 - ERROR - Unhandled exception
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\main.py", line 20, in <module>
+    window = VMainWindow(app=app, args=sys.argv)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\views\main\main_window.py", line 21, in __init__
+    self.__init_ui__()
+  File "E:\Work\Personal\RoastMe\views\main\main_window.py", line 25, in __init_ui__
+    self.___bubbleView = VBubbleWindow()
+                         ^^^^^^^^^^^^^^^
+  File "E:\Work\Personal\RoastMe\views\floating\bubble_window.py", line 23, in __init__
+    self.connectSignals()
+  File "E:\Work\Personal\RoastMe\views\floating\bubble_window.py", line 96, in connectSignals
+    signalBus.onEnlargeWindow.connect(self.enlargeWindow)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SignalBus' object has no attribute 'onEnlargeWindow'
+2024-07-15 17:07:58,359 - ERROR - Unhandled exception
+Traceback (most recent call last):
+  File "E:\Work\Personal\RoastMe\views\floating\bubble_holder.py", line 73, in mouseDoubleClickEvent
+    self.showInsult()
+  File "E:\Work\Personal\RoastMe\views\floating\bubble_holder.py", line 87, in showInsult
+    signalBus.onEnlargeWindow.emit(self.bubble.sizeHint())
+TypeError: onEnlargeWindow() only accepts 0 argument(s), 1 given!
