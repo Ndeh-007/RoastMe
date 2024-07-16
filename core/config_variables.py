@@ -2,7 +2,7 @@ from pathlib import Path
 
 from PySide6.QtCore import QStandardPaths
 
-DEBUG = True
+DEBUG = False
 
 YEAR = 2023
 AUTHOR = "NDEH.AKUMAH"
