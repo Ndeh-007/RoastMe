@@ -1,7 +1,22 @@
 # Humor Me
 A customizable joke teller. Jokes are gotten from [JokesAPI](https://jokesapi.dev). Insults are gotten from [EvilInsults](https://evilinsults.com/api)
+Creates a floating window that shows content (jokes/insults)
 
 ![docs/img.png](docs/img.png)
+
+## For Devs
+To build locally
+1. have python installed
+2. clone repo and create virtual environment
+3. install requirements
+   ```console
+        pip install -r requirement.txt
+   ```
+4. run application
+    ```console
+        python app.py   
+    ```
+5. To build deploy see [here](https://doc.qt.io/qtforpython-6/deployment/index.html)
 
 ## Installation (Windows)
 - Download the current release from [here](https://github.com/Ndeh-007/RoastMe/releases/download/v1.0.0/HumorMe.zip)
