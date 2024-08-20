@@ -41,6 +41,7 @@ class VSettingsView(QDialog):
         self.label = QLabel("Settings")
         self.console = VConsole()
         self.durationInput = QLineEdit()
+        self.showDurationInput = QLineEdit()
         self.languageComboBox = QComboBox()
         self.categoryComboBox = QComboBox()
 
@@ -78,6 +79,10 @@ class VSettingsView(QDialog):
         self.t_so = VSettingsGroupItem()
         self.t_so.addWidget(QLabel('Fetch Interval (min)'), 0, 0)
         self.t_so.addWidget(self.durationInput, 0, 1)
+
+        self.t_so.addWidget(QLabel("Close Bubble After (min)"), 1, 0)
+        self.t_so.addWidget(self.showDurationInput, 1, 1)
+
         self.t_so.addWidget(QLabel('Language'), 0, 2)
         self.t_so.addWidget(self.languageComboBox, 0, 3)
         self.t_so.addWidget(QWidget(), 0, 4)
@@ -170,6 +175,7 @@ class VSettingsView(QDialog):
         :return:
         """
         self.durationInput.editingFinished.connect(self.__handleDurationInputFinished)
+        self.showDurationInput.editingFinished.connect(self.__handleShowBubbleDurationInputFinished)
         self.languageComboBox.currentIndexChanged.connect(self.__handleLanguageChanged)
         self.categoryComboBox.currentIndexChanged.connect(self.__categoryModeChanged)
 
@@ -194,6 +200,7 @@ class VSettingsView(QDialog):
 
         # duration
         self.durationInput.setText(str(opts.get('fetch_interval').value()))
+        self.showDurationInput.setText(str(opts.get('bubble_display_time').value()))
 
         # language
         lang = opts.get('joke_language').value()
@@ -317,8 +324,24 @@ class VSettingsView(QDialog):
 
         self.dispatchToStorage({"fetch_interval": str(value)})
 
-    def __handleConfigure(self):
-        self.launch()
+    @exception_warning_handler("settings")
+    def __handleShowBubbleDurationInputFinished(self):
+        text = self.showDurationInput.text()
+        value = 0.25
+        try:
+            value = float(text)
+        except Exception as e:
+            API_dispatchAlert(f"value must be number")
+            self.showDurationInput.setText(f"{value}")
+            return
+
+        if value <= 0:
+            API_dispatchAlert("Cannot have an interval of 0 mins. Defaulting to 25 secs", "warning")
+            value = 0.25
+            self.showDurationInput.setText(f"{value}")
+
+        self.dispatchToStorage({"bubble_display_time": str(value)})
+
     # endregion
 
     # region override
@@ -331,7 +354,8 @@ class VSettingsView(QDialog):
         self.raise_()
         self.activateWindow()
 
-    def __collectCheckBoxOptions(self, dataset: dict[str, QCheckBox]) -> str | None:
+    @staticmethod
+    def __collectCheckBoxOptions(dataset: dict[str, QCheckBox]) -> str | None:
         txt = ""
         for k, box in dataset.items():
             if box.isChecked():
@@ -349,12 +373,13 @@ class VSettingsView(QDialog):
         for box in self.categoryOptions.values():
             box.setDisabled(state)
 
-    def dispatchToStorage(self, opts: dict[str, object]):
+    @staticmethod
+    def dispatchToStorage(opts: dict[str, object]):
         state = API_UpdateAppSettings(opts)
         if not state:
-            API_dispatchAlert(f"Failed to update.")
+            API_dispatchAlert(f"Failed to update - {str(list(opts.keys()))}")
         else:
-            API_dispatchAlert(f"Settings Updated.", "warning")
+            API_dispatchAlert(f"Settings Updated - {str(list(opts.keys()))}", "warning")
 
         return state
 

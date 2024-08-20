@@ -59,7 +59,8 @@ class LocalStorage(QObject):
         :return:
         """
         opts = {
-            "fetch_interval": StorageEntity("fetch_interval", 15),
+            "fetch_interval": StorageEntity("fetch_interval", 15),  # minutes
+            "bubble_display_time": StorageEntity("bubble_display_time", 0.25),  # minutes
             "joke_language": StorageEntity("joke_language", "en"),
             "joke_category": StorageEntity("joke_category", "Any"),
             "joke_flags": StorageEntity("joke_flags", None),

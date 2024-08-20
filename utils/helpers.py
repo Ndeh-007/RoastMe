@@ -1,4 +1,31 @@
 from PySide6.QtWidgets import QComboBox
+import re
+
+
+def reading_time(text: str, WPM: int = 200):
+    """
+    computes the time taken to read the number of words
+    :param text:
+    :param WPM:
+    :return:
+    """
+    words = text.split()
+    nWords = len(words)
+    return nWords/WPM
+
+
+def mins_to_ms(value: float, castToInt=False):
+    """
+    converts minutes to milliseconds
+    :param value:
+    :param castToInt:
+    :return:
+    """
+
+    if castToInt:
+        return int(value * 60000)
+
+    return value * 60000
 
 
 def populateComboBox(box: QComboBox, data: dict[str, str]):
@@ -42,4 +69,3 @@ def non_overlapping_strings(arr1, arr2):
     non_overlapping = list(only_in_arr1) + list(only_in_arr2)
 
     return non_overlapping
-

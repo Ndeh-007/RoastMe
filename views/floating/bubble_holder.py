@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QFrame, QLabel, QVBoxLayout, QHBoxLayout, QWidget
 
 from api.content import API_fetchContent
 from api.local_storage import API_fetchAppSettingsItem
+from utils.helpers import mins_to_ms, reading_time
 from utils.signal_bus import signalBus
 from views.floating.bubble import Bubble
 from views.floating.floating_context_menu import ContextMenu
@@ -53,7 +54,7 @@ class BubbleHolder(QFrame):
         self.bubble_timer.setSingleShot(True)
 
         # at every interval(ms), fetch an insult or joke
-        interval = 1 * 60000  # 1 minute
+        interval = mins_to_ms(1, True)  # 1 minute
 
         self.insult_timer = QTimer()
         self.insult_timer.setInterval(interval)
@@ -76,17 +77,26 @@ class BubbleHolder(QFrame):
 
     def showInsult(self):
         text = API_fetchContent()
+
         self.bubble.showBubble(text)
         signalBus.onEnlargeWindow.emit(self.bubble.sizeHint())
 
+        rT = reading_time(text) + float(API_fetchAppSettingsItem("bubble_display_time"))
+        ms = mins_to_ms(rT, True)
+        self.bubble_timer.setInterval(ms)
+        self.bubble_timer.start()
+
     def removeInsult(self):
         self.bubble.closeBubble()
-        # signalBus.onReduceWindow.emit()
 
     def __handleSettingsUpdated(self):
         interval = API_fetchAppSettingsItem("fetch_interval")
         if interval is not None:
-            self.insult_timer.setInterval(int(float(interval) * 60000))
+            self.insult_timer.setInterval(mins_to_ms(float(interval), True))
+
+        bubble_display_time = API_fetchAppSettingsItem("bubble_display_time")
+        if bubble_display_time is not None:
+            self.bubble_timer.setInterval(mins_to_ms(float(bubble_display_time), True))
 
     def connectSignals(self):
         signalBus.onSettingsUpdated.connect(self.__handleSettingsUpdated)

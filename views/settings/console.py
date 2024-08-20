@@ -8,7 +8,7 @@ from utils.signal_bus import signalBus
 class VConsole(QTextEdit):
     def __init__(self):
         super().__init__()
-
+        self.setReadOnly(True)
         signalBus.writeToConsole.connect(self.__handleWriteToOutput)
 
     def __handleWriteToOutput(self, data: object):
